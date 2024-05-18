@@ -1,5 +1,6 @@
 package com.dacs.choithuephongtro.service;
 
+
 import com.dacs.choithuephongtro.entities.User;
 import com.dacs.choithuephongtro.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class CustomUserDetailsService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             User user = userRepository.findByUsername(username).orElseThrow(() -> new Exception("user Not found "));
-            return new UserDetailsService(user);
+            return new CustomUserDetails  (user);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
