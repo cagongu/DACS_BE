@@ -29,20 +29,17 @@ public class SecurityConfig {
 
     private final JwtTokenFilter jwtAuthenticationFilter;
     private final UserDetailsService userDetailsService;
-    private final DaoAuthenticationProvider daoAuthenticationProvider;
 
     public SecurityConfig(JwtTokenFilter jwtAuthenticationFilter,
-                          UserDetailsService userDetailsService,
-                          DaoAuthenticationProvider daoAuthenticationProvider) {
+                          UserDetailsService userDetailsService) {
 
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
-        this.daoAuthenticationProvider = daoAuthenticationProvider;
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
@@ -65,7 +62,7 @@ public class SecurityConfig {
         //@formatter:off
         httpSecurity
                 .authorizeHttpRequests(requests-> requests
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/v1/register").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

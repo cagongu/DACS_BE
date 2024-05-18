@@ -2,9 +2,11 @@ package com.dacs.choithuephongtro.bootstrap;
 
 import com.dacs.choithuephongtro.entities.Category;
 import com.dacs.choithuephongtro.entities.Detail;
+import com.dacs.choithuephongtro.entities.Role;
 import com.dacs.choithuephongtro.entities.Room;
 import com.dacs.choithuephongtro.repositories.CategoryRepository;
 import com.dacs.choithuephongtro.repositories.DetailRepository;
+import com.dacs.choithuephongtro.repositories.RoleRepository;
 import com.dacs.choithuephongtro.repositories.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -16,11 +18,27 @@ public class BootstrapData implements CommandLineRunner {
     private final RoomRepository roomRepository;
     private final CategoryRepository categoryRepository;
     private final DetailRepository detailRepository;
+    private final RoleRepository roleRepository;
 
     @Override
     public void run(String... args) throws Exception {
         LoadCategoryData();
         LoadRoomData();
+        LoadRole();
+    }
+
+    private void LoadRole() {
+        if(roleRepository.count() == 0){
+            roleRepository.save(Role.builder()
+                    .name("ADMIN")
+                    .build());
+            roleRepository.save(Role.builder()
+                    .name("USER")
+                    .build());
+            roleRepository.save(Role.builder()
+                    .name("ROOM_OWNER")
+                    .build());
+        }
     }
 
     private void LoadCategoryData() {

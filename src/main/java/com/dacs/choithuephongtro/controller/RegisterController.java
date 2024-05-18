@@ -1,6 +1,9 @@
 package com.dacs.choithuephongtro.controller;
 
+import com.dacs.choithuephongtro.Response.RegisterRequest;
+import com.dacs.choithuephongtro.entities.Role;
 import com.dacs.choithuephongtro.entities.User;
+import com.dacs.choithuephongtro.repositories.RoleRepository;
 import com.dacs.choithuephongtro.repositories.UserRepository;
 import com.dacs.choithuephongtro.service.PasswordEncoderImpl;
 import lombok.AllArgsConstructor;
@@ -23,16 +26,31 @@ public class RegisterController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @PostMapping(REGISTER_PATH)
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+    public ResponseEntity<User> registerUser(@RequestBody RegisterRequest registerRequest) {
+        User user = repository.findByUsername(registerRequest.getUsername()).orElse(null);
 
-        repository.save(user);
+        if (user == null){
+            user = User.builder()
+                    .username(registerRequest.getUsername())
+                    .email(registerRequest.getEmail())
+                    .build();
+            String encodedPassword = passwordEncoder.encode(registerRequest.getPassword());
+            user.setPassword(encodedPassword);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", REGISTER_PATH + "/" + user.getUserId().toString());
+            Role role = roleRepository.findByName("USER");
+            user.addRole(role);
 
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+            repository.save(user);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Location", REGISTER_PATH + "/" + user.getUserId().toString());
+
+            return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        }
+        else  return ResponseEntity.badRequest().build();
     }
 }

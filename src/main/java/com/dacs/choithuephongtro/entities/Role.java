@@ -23,7 +23,7 @@ public class Role {
     @Column(name = "role_id")
     private UUID roleId;
 
-    private String role_name;
+    private String name;
 
     @Builder.Default
     @ManyToMany(mappedBy = "roles")

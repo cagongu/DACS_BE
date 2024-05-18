@@ -32,11 +32,21 @@ public class User {
     @Builder.Default
     @ManyToMany
     @JoinTable(
-            name = "room_role",
+            name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
+    public void addRole(Role role){
+        this.roles.add(role);
+        role.getUsers().add(this);
+    }
+
+    public void removeUser(Role role){
+        this.roles.remove(role);
+        role.getUsers().remove(this);
+    }
 
     @Builder.Default
     @ManyToMany(mappedBy = "listUsers")
