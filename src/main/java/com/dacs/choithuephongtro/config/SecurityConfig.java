@@ -63,6 +63,7 @@ public class SecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(requests-> requests
                         .requestMatchers("/api/auth/**", "/api/v1/register").permitAll()
+                        .requestMatchers("/api/v1/**").hasRole("USER")
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
