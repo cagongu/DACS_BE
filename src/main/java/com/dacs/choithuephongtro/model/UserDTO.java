@@ -1,5 +1,6 @@
 package com.dacs.choithuephongtro.model;
 
+import com.dacs.choithuephongtro.entities.Role;
 import com.dacs.choithuephongtro.entities.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,9 +22,9 @@ public class UserDTO {
 
     private String password;
 
-    private String role;
-
-    private Byte enabled;
+    private String email;
 
     private Set<Room> rooms;
+
+    private Set<Role> roles;
 }

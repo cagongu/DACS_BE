@@ -1,8 +1,5 @@
 package com.dacs.choithuephongtro.service;
 
-import com.dacs.choithuephongtro.model.DetailDTO;
-import com.dacs.choithuephongtro.model.UserDTO;
-
 import java.util.UUID;
 
 public interface UserService {

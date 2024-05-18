@@ -22,18 +22,21 @@ public class User {
     @JdbcTypeCode(SqlTypes.CHAR)
     @Column(name = "user_id")
     private UUID userId;
-    @Basic
-    @Column(name = "username")
+
     private String username;
-    @Basic
-    @Column(name = "password")
+
     private String password;
-    @Basic
-    @Column(name = "role")
-    private String role;
-    @Basic
-    @Column(name = "enabled")
-    private Byte enabled;
+
+    private String email;
+
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(
+            name = "room_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @Builder.Default
     @ManyToMany(mappedBy = "listUsers")
