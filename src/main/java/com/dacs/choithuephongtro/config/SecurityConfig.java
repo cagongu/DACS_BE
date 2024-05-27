@@ -62,7 +62,8 @@ public class SecurityConfig {
         //@formatter:off
         httpSecurity
                 .authorizeHttpRequests(requests-> requests
-                        .requestMatchers("/api/auth/**", "/api/v1/register").permitAll()
+                        .requestMatchers("/api/v1/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/v1/**").hasRole("USER")
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class RegisterController {
-    private static final String REGISTER_PATH = "/api/v1/register";
+    private static final String REGISTER_PATH = "/api/auth/register";
 
     @Autowired
     private PasswordEncoderImpl passwordEncoder;
