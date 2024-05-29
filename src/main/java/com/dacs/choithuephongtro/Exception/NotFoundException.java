@@ -1,4 +1,4 @@
-package com.dacs.choithuephongtro.Exeption;
+package com.dacs.choithuephongtro.Exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -2,12 +2,13 @@ package com.dacs.choithuephongtro.service;
 
 import com.dacs.choithuephongtro.entities.Room;
 import com.dacs.choithuephongtro.entities.User;
-import com.dacs.choithuephongtro.mappers.UserMapper;
+import com.dacs.choithuephongtro.Exception.UserNotFoundException;
 import com.dacs.choithuephongtro.repositories.RoomRepository;
 import com.dacs.choithuephongtro.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -48,6 +49,27 @@ public class UserServiceImpl implements UserService {
 
         room.setRegister(true);
 
+    }
+
+    @Override
+    public User getUserByUserName(String username) throws UserNotFoundException {
+        Optional<User> user1=userRepository.findByUsername(username);
+
+        if (user1.isPresent()){
+            return user1.get();
+        }else {
+            throw new UserNotFoundException();
+        }
+    }
+
+    @Override
+    public List<User> getAll() throws UserNotFoundException {
+        List<User> users=userRepository.findAll();
+        if (users.isEmpty()){
+            throw new UserNotFoundException();
+        }else {
+            return users;
+        }
     }
 
     @Override

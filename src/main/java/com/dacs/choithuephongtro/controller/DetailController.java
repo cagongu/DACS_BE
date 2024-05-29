@@ -1,6 +1,6 @@
 package com.dacs.choithuephongtro.controller;
 
-import com.dacs.choithuephongtro.Exeption.NotFoundException;
+import com.dacs.choithuephongtro.Exception.NotFoundException;
 import com.dacs.choithuephongtro.Response.DetailUploadImageResponse;
 import com.dacs.choithuephongtro.model.DetailDTO;
 import com.dacs.choithuephongtro.service.DetailService;
