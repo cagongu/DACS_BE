@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class AuthLoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
