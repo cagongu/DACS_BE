@@ -7,24 +7,23 @@ import com.dacs.choithuephongtro.Exception.NoChatExistsInTheRepository;
 import com.dacs.choithuephongtro.entities.Chat;
 import com.dacs.choithuephongtro.entities.Message;
 import com.dacs.choithuephongtro.service.ChatService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/chats")
+@AllArgsConstructor
 public class ChatController {
-    @Autowired
-    private ChatService chatService;
+    private final ChatService chatService;
 
     @PostMapping("/add")
-    public ResponseEntity<Chat> createChat(@RequestBody Chat chat) throws IOException {
+    public ResponseEntity<Chat> createChat(@RequestBody Chat chat) {
 
         try {
             return new ResponseEntity<Chat>(chatService.addChat(chat), HttpStatus.CREATED);
@@ -32,11 +31,10 @@ public class ChatController {
             return new ResponseEntity("Chat Already Exist", HttpStatus.CONFLICT);
         }
     }
-
-    @PostMapping("/add/message1")
-    public ResponseEntity<Message> addMessage2(@RequestBody Message message) throws IOException {
-        return new ResponseEntity<Message>(chatService.addMessage2(message), HttpStatus.CREATED);
-    }
+//    @PostMapping("/add/message1/{chatId}")
+//    public ResponseEntity<Message> addMessage2(@PathVariable("chatId") UUID chatId,  @RequestBody Message message) {
+//        return new ResponseEntity<Message>(chatService.addMessage2(message), HttpStatus.CREATED);
+//    }
 
     @GetMapping("/all")
     public ResponseEntity<List<Chat>> getAllChats() {

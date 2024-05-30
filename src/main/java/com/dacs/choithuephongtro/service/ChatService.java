@@ -27,7 +27,7 @@ public interface ChatService {
 
     Chat addMessage(Message add, UUID chatId)  throws ChatNotFoundException;
 
-    Message addMessage2(Message message);
+//    Message addMessage2(Message message);
 
     List<Message> getAllMessagesInChat(UUID chatId) throws NoChatExistsInTheRepository;
 }

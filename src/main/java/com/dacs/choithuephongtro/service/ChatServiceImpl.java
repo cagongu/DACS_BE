@@ -7,7 +7,6 @@ import com.dacs.choithuephongtro.entities.Message;
 import com.dacs.choithuephongtro.repositories.ChatRepository;
 import com.dacs.choithuephongtro.repositories.MessageRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -20,21 +19,38 @@ public class ChatServiceImpl implements ChatService {
     private final MessageRepository messageRepository;
 
     public Chat addChat(Chat chat) {
+        List<Message> messageList = chat.getMessageList();
+
+        if (!messageList.isEmpty()) {
+            for (int i = 0; i < messageList.size(); i++) {
+                chat.getMessageList().get(i).setChat(chat);
+            }
+        }
+
         return chatRepository.save(chat);
     }
 
     @Override
-    public Message addMessage2(Message message) {
-        return messageRepository.save(message);
+    public Chat addMessage(Message add, UUID chatId) {
+        Optional<Chat> chat = chatRepository.findById(chatId);
+        Chat savedChat = chat.get();
+        savedChat.getMessageList().add(add);
+        add.setChat(savedChat);
+        return chatRepository.save(savedChat);
     }
+
+//    @Override
+//    public Message addMessage2(Message message) {
+//        return messageRepository.save(message);
+//    }
 
     @Override
     public List<Message> getAllMessagesInChat(UUID chatId) throws NoChatExistsInTheRepository {
         Optional<Chat> chat = chatRepository.findById(chatId);
 
-        if(chat.isEmpty()){
+        if (chat.isEmpty()) {
             throw new NoChatExistsInTheRepository();
-        }else {
+        } else {
             return chat.get().getMessageList();
         }
     }
@@ -108,24 +124,4 @@ public class ChatServiceImpl implements ChatService {
             return chat;
         }
     }
-
-    @Override
-    public Chat addMessage(Message add, UUID chatId) {
-        Optional<Chat> chat=chatRepository.findById(chatId);
-        Chat abc=chat.get();
-
-        if(abc.getMessageList()==null){
-            List<Message> msg=new ArrayList<>();
-            msg.add(add);
-            abc.setMessageList(msg);
-            return chatRepository.save(abc);
-        }else{
-            List<Message> rates=abc.getMessageList();
-            rates.add(add);
-            abc.setMessageList(rates);
-            return chatRepository.save(abc);
-        }
-    }
-
-
 }

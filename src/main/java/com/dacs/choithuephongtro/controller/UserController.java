@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -19,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/getall")
-    public ResponseEntity<List<User>> getAll() throws UserNotFoundException {
+    public ResponseEntity<List<User>> getAll() {
         try{
             return new ResponseEntity<List<User>>(userService.getAll(), HttpStatus.OK);
         }catch (UserNotFoundException e){
@@ -37,7 +36,7 @@ public class UserController {
 //    }
 
     @GetMapping("/getbyusername/{username}")
-    public ResponseEntity<User> getUserByUserName(@PathVariable String username) throws IOException {
+    public ResponseEntity<User> getUserByUserName(@PathVariable String username) {
         try{
             return new ResponseEntity<User>(userService.getUserByUserName(username), HttpStatus.OK);
         }catch (UserNotFoundException e){

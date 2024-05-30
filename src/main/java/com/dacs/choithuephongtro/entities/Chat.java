@@ -1,10 +1,10 @@
 package com.dacs.choithuephongtro.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -26,6 +26,6 @@ public class Chat {
     private String secondUserName;
 
     @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
+    @ToString.Exclude
     private List<Message> messageList;
 }

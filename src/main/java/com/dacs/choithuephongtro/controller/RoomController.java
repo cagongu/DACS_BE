@@ -59,16 +59,16 @@ public class RoomController {
     }
 
     @GetMapping(value = ROOM_PATH)
-    public Page<RoomDTO> listBeers(@RequestParam(required = false) String roomName,
+    public Page<RoomDTO> listRooms(@RequestParam(required = false) String roomName,
                                    @RequestParam(required = false) Integer pageNumber,
                                    @RequestParam(required = false) Integer pageSize) {
         return roomService.listRooms(roomName, pageNumber, pageSize);
     }
 
     @GetMapping(value = ROOM_PATH+"/by-category")
-    public Page<RoomDTO> listBeersByCategoryId(@RequestParam(required = false) UUID categoryId,
-                                   @RequestParam(required = false) Integer pageNumber,
-                                   @RequestParam(required = false) Integer pageSize) {
+    public Page<RoomDTO> listRoomsByCategoryId(@RequestParam(required = false) UUID categoryId,
+                                               @RequestParam(required = false) Integer pageNumber,
+                                               @RequestParam(required = false) Integer pageSize) {
         return roomService.listRoomsByCategoryId(categoryId, pageNumber, pageSize);
     }
 

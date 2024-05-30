@@ -1,5 +1,6 @@
 package com.dacs.choithuephongtro.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class Message {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "chat_id")
+    @JsonIgnore
     private Chat chat;
 
 }
