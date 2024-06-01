@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 
 @EnableWebSecurity
 @Configuration
@@ -58,15 +59,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable);
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
         //@formatter:off
+        CookieClearingLogoutHandler cookies = new CookieClearingLogoutHandler("our-custom-cookie");
         httpSecurity
                 .authorizeHttpRequests(requests-> requests
-                        .requestMatchers("/api/v1/**", "/users/**", "/chats/**").hasRole("USER")
+                        .requestMatchers("/api/v1/**" ,"/users/**", "/chats/**").hasRole("USER")
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout((logout) -> logout.addLogoutHandler(cookies));
         //@formatter:on
         return httpSecurity.build();
     }

@@ -1,6 +1,7 @@
 package com.dacs.choithuephongtro.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +11,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -48,6 +48,9 @@ public class Room {
     @ManyToOne
     private Category category;
 
+    @Column(name="roomOwner_id",length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = true)
+    private UUID roomOwner;
+
     @Builder.Default
     @ManyToMany
     @JoinTable(
@@ -55,6 +58,7 @@ public class Room {
             joinColumns = @JoinColumn(name = "room_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    @JsonIgnore
     private Set<User> listUsers = new HashSet<>();
 
     public void addUser(User user){

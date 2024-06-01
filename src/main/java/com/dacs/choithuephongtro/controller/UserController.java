@@ -10,10 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -24,6 +25,11 @@ public class UserController {
         }catch (UserNotFoundException e){
             return new ResponseEntity("User not Found", HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/getuserinroombyid/{roomId}")
+    public List<User> getUserInRoom(@PathVariable("roomId") UUID roomId){
+        return userService.getUserByRoomId(roomId);
     }
 
 //    @PostMapping("/add")
@@ -43,5 +49,4 @@ public class UserController {
             return new ResponseEntity("User not Found", HttpStatus.NOT_FOUND);
         }
     }
-
 }

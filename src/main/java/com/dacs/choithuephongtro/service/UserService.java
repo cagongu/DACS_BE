@@ -15,4 +15,6 @@ public interface UserService {
     List<User> getAll() throws UserNotFoundException;
 
     void comfirmRoom(UUID roomId);
+
+    List<User> getUserByRoomId(UUID roomId);
 }

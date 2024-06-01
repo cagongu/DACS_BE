@@ -19,4 +19,6 @@ public interface RoomService {
     boolean deleteRoomById(UUID id);
 
     Optional<RoomDTO> patchRoomById(UUID id, RoomDTO room);
+
+    Optional<RoomDTO> addUserToRoom(UUID roomId, UUID userId);
 }

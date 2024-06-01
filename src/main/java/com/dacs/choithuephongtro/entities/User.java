@@ -1,5 +1,8 @@
 package com.dacs.choithuephongtro.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -36,6 +39,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     public void addRole(Role role){
@@ -50,6 +54,7 @@ public class User {
 
     @Builder.Default
     @ManyToMany(mappedBy = "listUsers")
+    @JsonManagedReference
     private Set<Room> rooms = new HashSet<>();
 
 }

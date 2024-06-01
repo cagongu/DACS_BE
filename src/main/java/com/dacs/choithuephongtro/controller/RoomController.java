@@ -46,6 +46,14 @@ public class RoomController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/api/v1/room/addUserToRoom/{roomId}")
+    public ResponseEntity<RoomDTO> addUserToRoom(@PathVariable("roomId") UUID roomId, @RequestParam UUID userId) {
+
+        if (roomService.addUserToRoom(roomId, userId).isEmpty()) {
+            throw new NotFoundException();
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
     @PostMapping(ROOM_PATH)
     public ResponseEntity<RoomDTO> handlePost( @RequestBody RoomDTO roomDTO, @RequestParam String CategoryDescription) {

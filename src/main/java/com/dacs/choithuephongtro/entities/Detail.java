@@ -26,13 +26,13 @@ public class Detail {
 
     private String description;
 
-    @Column(name = "image1", unique = false, nullable = false, length = 100000)
+    @Column(name = "image1", unique = false, nullable = true, length = 100000)
     private byte[] image1;
-    @Column(name = "image2", unique = false, nullable = false, length = 100000)
+    @Column(name = "image2", unique = false, nullable = true, length = 100000)
     private byte[] image2;
-    @Column(name = "image3", unique = false, nullable = false, length = 100000)
+    @Column(name = "image3", unique = false, nullable = true, length = 100000)
     private byte[] image3;
-    @Column(name = "image4", unique = false, nullable = false, length = 100000)
+    @Column(name = "image4", unique = false, nullable = true, length = 100000)
     private byte[] image4;
 
     @JsonBackReference

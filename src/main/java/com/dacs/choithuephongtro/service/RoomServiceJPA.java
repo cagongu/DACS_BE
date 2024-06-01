@@ -3,6 +3,7 @@ package com.dacs.choithuephongtro.service;
 import com.dacs.choithuephongtro.entities.Category;
 import com.dacs.choithuephongtro.entities.Detail;
 import com.dacs.choithuephongtro.entities.Room;
+import com.dacs.choithuephongtro.entities.User;
 import com.dacs.choithuephongtro.mappers.CategoryMapper;
 import com.dacs.choithuephongtro.mappers.RoomMapper;
 import com.dacs.choithuephongtro.model.CategoryDTO;
@@ -10,6 +11,7 @@ import com.dacs.choithuephongtro.model.RoomDTO;
 import com.dacs.choithuephongtro.repositories.CategoryRepository;
 import com.dacs.choithuephongtro.repositories.DetailRepository;
 import com.dacs.choithuephongtro.repositories.RoomRepository;
+import com.dacs.choithuephongtro.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +31,7 @@ public class RoomServiceJPA implements RoomService {
     private final RoomRepository roomRepository;
     private final DetailRepository detailRepository;
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     private final CategoryMapper categoryMapper;
 
@@ -158,6 +161,20 @@ public class RoomServiceJPA implements RoomService {
 
             atomicReference.set(Optional.of(roomMapper.roomToRoomDto(roomRepository.save(foundRoom))));
         }, () -> atomicReference.set(Optional.empty()));
+        return atomicReference.get();
+    }
+
+    @Override
+    public Optional<RoomDTO> addUserToRoom(UUID roomId, UUID userId) {
+        AtomicReference<Optional<RoomDTO>> atomicReference = new AtomicReference<>();
+        Optional<User> user = userRepository.findById(userId);
+
+        user.ifPresent(value -> roomRepository.findById(roomId).ifPresentOrElse(foundRoom -> {
+            foundRoom.addUser(value);
+
+            atomicReference.set(Optional.of(roomMapper.roomToRoomDto(roomRepository.save(foundRoom))));
+        }, () -> atomicReference.set(Optional.empty())));
+
         return atomicReference.get();
     }
 }
