@@ -1,8 +1,8 @@
 package com.dacs.choithuephongtro.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,8 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -39,17 +38,18 @@ public class Room {
     private String name;
 
     private Boolean register;
+
     private Boolean enable;
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToOne(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Detail detail;
 
     @ManyToOne
     private Category category;
 
-    @Column(name="roomOwner_id",length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = true)
-    private UUID roomOwner;
+    @Column(name="room_owner_id",length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = true)
+    private UUID room_owner_id;
 
     @Builder.Default
     @ManyToMany

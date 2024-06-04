@@ -13,6 +13,7 @@ public interface UserService {
     void roomRegistration(UUID roomId);
     User getUserByUserName(String username) throws UserNotFoundException;
     List<User> getAll() throws UserNotFoundException;
+    User getUserById(UUID userId);
 
     void comfirmRoom(UUID roomId);
 

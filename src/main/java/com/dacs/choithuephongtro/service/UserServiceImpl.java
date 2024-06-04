@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
         Room room = roomRepository.findById(roomId).orElseThrow();
         room.setRegister(true);
     }
+
     @Override
     public User getUserByUserName(String username) throws UserNotFoundException {
         Optional<User> user1=userRepository.findByUsername(username);
@@ -66,6 +67,12 @@ public class UserServiceImpl implements UserService {
             return users;
         }
     }
+
+    @Override
+    public User getUserById(UUID userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
+
     @Override
     public void comfirmRoom(UUID roomId) {
         Room room = roomRepository.findById(roomId).orElseThrow();

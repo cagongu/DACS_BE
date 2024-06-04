@@ -1,9 +1,8 @@
 package com.dacs.choithuephongtro.model;
 
 import com.dacs.choithuephongtro.entities.Room;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-
 import java.util.UUID;
 
 @Setter
@@ -22,5 +21,6 @@ public class DetailDTO {
     private byte[] image3;
     private byte[] image4;
 
+    @JsonBackReference
     private Room room;
 }

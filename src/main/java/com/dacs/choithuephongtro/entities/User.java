@@ -54,7 +54,7 @@ public class User {
 
     @Builder.Default
     @ManyToMany(mappedBy = "listUsers")
-    @JsonManagedReference
+//    @JsonManagedReference
     private Set<Room> rooms = new HashSet<>();
 
 }

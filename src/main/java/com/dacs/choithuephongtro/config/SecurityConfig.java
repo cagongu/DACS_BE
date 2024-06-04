@@ -64,7 +64,7 @@ public class SecurityConfig {
         CookieClearingLogoutHandler cookies = new CookieClearingLogoutHandler("our-custom-cookie");
         httpSecurity
                 .authorizeHttpRequests(requests-> requests
-                        .requestMatchers("/api/v1/**" ,"/users/**", "/chats/**").hasRole("USER")
+                        .requestMatchers("/api/v1/**" ,"/users/**", "/chats/**", "/roomowner/**").hasRole("USER")
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())

@@ -6,7 +6,6 @@ import com.dacs.choithuephongtro.entities.Room;
 import com.dacs.choithuephongtro.entities.User;
 import com.dacs.choithuephongtro.mappers.CategoryMapper;
 import com.dacs.choithuephongtro.mappers.RoomMapper;
-import com.dacs.choithuephongtro.model.CategoryDTO;
 import com.dacs.choithuephongtro.model.RoomDTO;
 import com.dacs.choithuephongtro.repositories.CategoryRepository;
 import com.dacs.choithuephongtro.repositories.DetailRepository;
@@ -32,9 +31,6 @@ public class RoomServiceJPA implements RoomService {
     private final DetailRepository detailRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
-
-    private final CategoryMapper categoryMapper;
-
 
     private static final int DEFAULT_PAGE = 0;
     private static final int DEFAULT_PAGE_SIZE = 25;

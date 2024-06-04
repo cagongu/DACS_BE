@@ -20,32 +20,29 @@ public class UserController {
 
     @GetMapping("/getall")
     public ResponseEntity<List<User>> getAll() {
-        try{
+        try {
             return new ResponseEntity<List<User>>(userService.getAll(), HttpStatus.OK);
-        }catch (UserNotFoundException e){
+        } catch (UserNotFoundException e) {
             return new ResponseEntity("User not Found", HttpStatus.NOT_FOUND);
         }
     }
 
+    @GetMapping("/getbyid/{userId}")
+    public User getUserById(@PathVariable("userId") UUID userId) {
+        return userService.getUserById(userId);
+    }
+
     @GetMapping("/getuserinroombyid/{roomId}")
-    public List<User> getUserInRoom(@PathVariable("roomId") UUID roomId){
+    public List<User> getUserInRoom(@PathVariable("roomId") UUID roomId) {
         return userService.getUserByRoomId(roomId);
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<User> addUser(@RequestBody User user) throws IOException {
-//        try{
-//            return new ResponseEntity<User>(userService.addUser(user), HttpStatus.OK);
-//        }catch (UserAlreadyExistException e){
-//            return new ResponseEntity("User already exists", HttpStatus.CONFLICT);
-//        }
-//    }
 
     @GetMapping("/getbyusername/{username}")
     public ResponseEntity<User> getUserByUserName(@PathVariable String username) {
-        try{
+        try {
             return new ResponseEntity<User>(userService.getUserByUserName(username), HttpStatus.OK);
-        }catch (UserNotFoundException e){
+        } catch (UserNotFoundException e) {
             return new ResponseEntity("User not Found", HttpStatus.NOT_FOUND);
         }
     }

@@ -1,6 +1,5 @@
 package com.dacs.choithuephongtro.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -28,6 +27,6 @@ public class Role {
 
     @Builder.Default
     @ManyToMany(mappedBy = "roles")
-    @JsonManagedReference
+//    @JsonManagedReference
     private Set<User> users = new HashSet<>();
 }

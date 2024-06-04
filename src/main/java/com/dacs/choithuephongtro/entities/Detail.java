@@ -1,6 +1,7 @@
 package com.dacs.choithuephongtro.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -35,7 +36,7 @@ public class Detail {
     @Column(name = "image4", unique = false, nullable = true, length = 100000)
     private byte[] image4;
 
-    @JsonBackReference
+//    @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;

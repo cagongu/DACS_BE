@@ -2,6 +2,7 @@ package com.dacs.choithuephongtro.model;
 
 import com.dacs.choithuephongtro.entities.Role;
 import com.dacs.choithuephongtro.entities.Room;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,5 +27,6 @@ public class UserDTO {
 
     private Set<Room> rooms;
 
+    @JsonIgnore
     private Set<Role> roles;
 }
