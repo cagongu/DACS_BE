@@ -4,7 +4,6 @@ import com.dacs.choithuephongtro.Exception.NotFoundException;
 import com.dacs.choithuephongtro.entities.Room;
 import com.dacs.choithuephongtro.model.RoomDTO;
 import com.dacs.choithuephongtro.service.RoomService;
-import com.dacs.choithuephongtro.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,17 +17,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @RequestMapping("/roomowner")
 public class RoomOwnerController {
-    private final UserService userService;
     private final RoomService roomService;
 
-    @PostMapping("/remove")
-    public ResponseEntity<Room> removeUserToRoom(@RequestParam UUID customerId, @RequestParam UUID roomId){
-        userService.removeCustomerToRoom(customerId, roomId);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @PostMapping("/removeuser")
+    public ResponseEntity<Room> removeUserToRoom(@RequestParam UUID roomId, @RequestParam UUID userId ) {
+        if(roomService.removeUserToRoom(roomId, userId).isEmpty()){
+            throw  new NotFoundException();
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/add")
+    @PutMapping("/adduser")
     public ResponseEntity<RoomDTO> addUserToRoom(@RequestParam UUID roomId, @RequestParam UUID userId) {
 
         if (roomService.addUserToRoom(roomId, userId).isEmpty()) {
@@ -64,7 +63,7 @@ public class RoomOwnerController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<RoomDTO> handlePost( @RequestBody RoomDTO roomDTO, @RequestParam String CategoryDescription) {
+    public ResponseEntity<RoomDTO> handlePost(@RequestBody RoomDTO roomDTO, @RequestParam String CategoryDescription) {
 
         RoomDTO savedRoom = roomService.saveNewRoom(roomDTO, CategoryDescription);
 

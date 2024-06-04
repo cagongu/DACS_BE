@@ -173,4 +173,19 @@ public class RoomServiceJPA implements RoomService {
 
         return atomicReference.get();
     }
+
+    @Override
+    public Optional<RoomDTO> removeUserToRoom(UUID roomId, UUID userId) {
+
+        AtomicReference<Optional<RoomDTO>> atomicReference = new AtomicReference<>();
+        Optional<User> user = userRepository.findById(userId);
+
+        user.ifPresent(value -> roomRepository.findById(roomId).ifPresentOrElse(foundRoom -> {
+            foundRoom.removeUser(value);
+
+            atomicReference.set(Optional.of(roomMapper.roomToRoomDto(roomRepository.save(foundRoom))));
+        }, () -> atomicReference.set(Optional.empty())));
+
+        return atomicReference.get();
+    }
 }

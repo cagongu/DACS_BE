@@ -20,29 +20,6 @@ public class UserServiceImpl implements UserService {
     private final RoomRepository roomRepository;
 
     @Override
-    public void addCustomerToRoom(UUID customerId, UUID roomId) {
-        Optional<User> user = userRepository.findById(customerId);
-        Optional<Room> room = roomRepository.findById(roomId);
-
-        if(user.isPresent() && room.isPresent()){
-            room.get().addUser(user.get());
-            roomRepository.save(room.get());
-            userRepository.save(user.get());
-        }
-    }
-
-    @Override
-    public void removeCustomerToRoom(UUID customerId, UUID roomId) {
-        Optional<User> user = userRepository.findById(customerId);
-        Optional<Room> room = roomRepository.findById(roomId);
-
-        if(user.isPresent() && room.isPresent()){
-            room.get().removeUser(user.get());
-            roomRepository.save(room.get());
-            userRepository.save(user.get());
-        }
-    }
-    @Override
     public void roomRegistration(UUID roomId) {
         Room room = roomRepository.findById(roomId).orElseThrow();
         room.setRegister(true);

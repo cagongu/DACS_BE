@@ -21,4 +21,6 @@ public interface RoomService {
     Optional<RoomDTO> patchRoomById(UUID id, RoomDTO room);
 
     Optional<RoomDTO> addUserToRoom(UUID roomId, UUID userId);
+
+    Optional<RoomDTO> removeUserToRoom(UUID roomId, UUID userId);
 }
