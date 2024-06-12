@@ -31,10 +31,6 @@ public class ChatController {
             return new ResponseEntity("Chat Already Exist", HttpStatus.CONFLICT);
         }
     }
-//    @PostMapping("/add/message1/{chatId}")
-//    public ResponseEntity<Message> addMessage2(@PathVariable("chatId") UUID chatId,  @RequestBody Message message) {
-//        return new ResponseEntity<Message>(chatService.addMessage2(message), HttpStatus.CREATED);
-//    }
 
     @GetMapping("/all")
     public ResponseEntity<List<Chat>> getAllChats() {
@@ -76,7 +72,6 @@ public class ChatController {
         }
     }
 
-
     @GetMapping("/secondUserName/{username}")
     public ResponseEntity<?> getChatBySecondUserName(@PathVariable String username) {
 
@@ -99,7 +94,6 @@ public class ChatController {
         }
     }
 
-
     @GetMapping("/getChatByFirstUserNameAndSecondUserName")
     public ResponseEntity<Chat> getChatByFirstUserNameAndSecondUserName(@RequestParam("firstUserName") String firstUserName, @RequestParam("secondUserName") String secondUserName) {
 
@@ -110,7 +104,6 @@ public class ChatController {
             return new ResponseEntity("Chat Not Exits", HttpStatus.NOT_FOUND);
         }
     }
-
 
     @PutMapping("/message/{chatId}")
     public ResponseEntity<Chat> addMessage(@RequestBody Message add, @PathVariable UUID chatId) throws ChatNotFoundException {

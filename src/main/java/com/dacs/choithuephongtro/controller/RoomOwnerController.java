@@ -18,7 +18,6 @@ import java.util.UUID;
 @RequestMapping("/roomowner")
 public class RoomOwnerController {
     private final RoomService roomService;
-
     @PostMapping("/removeuser")
     public ResponseEntity<Room> removeUserToRoom(@RequestParam UUID roomId, @RequestParam UUID userId ) {
         if(roomService.removeUserToRoom(roomId, userId).isEmpty()){
@@ -72,6 +71,4 @@ public class RoomOwnerController {
 
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
-
-
 }

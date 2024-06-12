@@ -65,7 +65,7 @@ public class SecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(requests-> requests
                         .requestMatchers("/api/v1/**" ,"/users/**", "/chats/**", "/roomowner/**").hasRole("USER")
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/word/**").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

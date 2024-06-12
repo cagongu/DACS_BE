@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -32,6 +33,18 @@ public class User {
 
     private String email;
 
+//    cmnd
+    private String idNumber;
+
+//    co quan cap
+    private String idIssuingAuthority;
+
+//    ngay cap
+    private Timestamp idIssueDate;
+
+    private String address;
+
+
     @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(
@@ -54,7 +67,6 @@ public class User {
 
     @Builder.Default
     @ManyToMany(mappedBy = "listUsers")
-//    @JsonManagedReference
     private Set<Room> rooms = new HashSet<>();
 
 }
