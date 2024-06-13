@@ -5,6 +5,7 @@ import com.dacs.choithuephongtro.mappers.CategoryMapper;
 import com.dacs.choithuephongtro.model.CategoryDTO;
 import com.dacs.choithuephongtro.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -15,10 +16,11 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
-@AllArgsConstructor
 public class CategoryServiceJPA implements CategoryService {
-    private final CategoryRepository categoryRepository;
-    private final CategoryMapper categoryMapper;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     @Override
     public List<CategoryDTO> ListCategories() {

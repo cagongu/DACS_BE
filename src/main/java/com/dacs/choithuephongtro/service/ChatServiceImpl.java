@@ -7,16 +7,17 @@ import com.dacs.choithuephongtro.entities.Message;
 import com.dacs.choithuephongtro.repositories.ChatRepository;
 import com.dacs.choithuephongtro.repositories.MessageRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-@AllArgsConstructor
 public class ChatServiceImpl implements ChatService {
-    private final ChatRepository chatRepository;
-
-    private final MessageRepository messageRepository;
+    @Autowired
+    private ChatRepository chatRepository;
+    @Autowired
+    private MessageRepository messageRepository;
 
     public Chat addChat(Chat chat) {
         List<Message> messageList = chat.getMessageList();

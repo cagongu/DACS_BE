@@ -1,19 +1,25 @@
 package com.dacs.choithuephongtro.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "lease_contract")
 public class LeaseContract {
     @Id
@@ -28,24 +34,25 @@ public class LeaseContract {
 
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
-
     //  Bên A
     @ManyToOne
     private User lessor;
-
     //  Bên B
     @ManyToOne
     private User lessee;
 
     private String address;
 
-    private double RevenuesRent;
+    private BigDecimal RevenuesRent;
 
-    private double unitPriceOfElectricity;
+    private BigDecimal unitPriceOfElectricity;
 
-    private double UnitPriceOfWater;
+    private BigDecimal UnitPriceOfWater;
 
+    private Timestamp contractDuration;
 
-
+    @Builder.Default
+    @ManyToMany(mappedBy = "contracts")
+    private Set<Room> rooms = new HashSet<>();
 
 }

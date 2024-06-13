@@ -4,7 +4,7 @@ import com.dacs.choithuephongtro.Exception.NotFoundException;
 import com.dacs.choithuephongtro.entities.Room;
 import com.dacs.choithuephongtro.model.RoomDTO;
 import com.dacs.choithuephongtro.service.RoomService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/roomowner")
 public class RoomOwnerController {
-    private final RoomService roomService;
+    @Autowired
+    private RoomService roomService;
     @PostMapping("/removeuser")
     public ResponseEntity<Room> removeUserToRoom(@RequestParam UUID roomId, @RequestParam UUID userId ) {
         if(roomService.removeUserToRoom(roomId, userId).isEmpty()){

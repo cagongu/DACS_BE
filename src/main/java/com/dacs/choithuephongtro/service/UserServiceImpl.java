@@ -6,6 +6,7 @@ import com.dacs.choithuephongtro.Exception.UserNotFoundException;
 import com.dacs.choithuephongtro.repositories.RoomRepository;
 import com.dacs.choithuephongtro.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,10 +15,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
-    private final RoomRepository roomRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Override
     public void roomRegistration(UUID roomId) {

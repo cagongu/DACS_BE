@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -23,10 +24,25 @@ public class UserDTO {
 
     private String password;
 
+    private String fullname;
+
     private String email;
+
+    private Timestamp date_of_birth;
+
+    private String idNumber;
+
+    private String idIssuingAuthority;
+
+    private Timestamp idIssueDate;
+
+    private String address;
+
+    private String phoneNumber;
 
     private Set<Room> rooms;
 
     @JsonIgnore
     private Set<Role> roles;
+
 }

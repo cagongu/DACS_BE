@@ -43,7 +43,7 @@ public class JwtTokenProvider {
     }
 
     // Check if the token is valid and not expired
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token) throws SignatureException {
 
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
@@ -56,8 +56,6 @@ public class JwtTokenProvider {
             log.error("Unsupported JWT token");
         } catch (IllegalArgumentException ex) {
             log.error("JWT claims string is empty");
-        } catch (SignatureException e) {
-            log.error("there is an error with the signature of you token ");
         }
         return false;
     }

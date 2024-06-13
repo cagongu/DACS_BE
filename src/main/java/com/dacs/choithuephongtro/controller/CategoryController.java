@@ -4,6 +4,7 @@ import com.dacs.choithuephongtro.Exception.NotFoundException;
 import com.dacs.choithuephongtro.model.CategoryDTO;
 import com.dacs.choithuephongtro.service.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,11 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@AllArgsConstructor
 public class CategoryController {
     private static final String CATEGORY_PATH = "/api/v1/category";
     private static final String CATEGORY_PATH_ID = CATEGORY_PATH + "/{categoryId}";
-    private final CategoryService categoryService;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping(CATEGORY_PATH)
     public List<CategoryDTO> listCategories(){

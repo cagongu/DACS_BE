@@ -15,7 +15,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -60,6 +61,26 @@ public class Room {
     )
     @JsonIgnore
     private Set<User> listUsers = new HashSet<>();
+
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(
+            name = "room_contract",
+            joinColumns = @JoinColumn(name = "room_id"),
+            inverseJoinColumns = @JoinColumn(name = "contract_id")
+    )
+    @JsonIgnore
+    private Set<LeaseContract> contracts = new HashSet<>();
+
+    public void addContract(LeaseContract contract){
+        this.contracts.add(contract);
+        contract.getRooms().add(this);
+    }
+
+    public void removeUser(LeaseContract contract){
+        this.contracts.remove(contract);
+        contract.getRooms().remove(contract);
+    }
 
     public void addUser(User user){
         this.listUsers.add(user);

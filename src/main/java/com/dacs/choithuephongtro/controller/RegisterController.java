@@ -15,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
-@RequiredArgsConstructor
 public class RegisterController {
     private static final String REGISTER_PATH = "/api/auth/register";
 

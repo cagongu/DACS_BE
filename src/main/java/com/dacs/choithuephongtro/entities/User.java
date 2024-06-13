@@ -1,8 +1,7 @@
 package com.dacs.choithuephongtro.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -31,7 +30,11 @@ public class User {
 
     private String password;
 
+    private String fullname;
+
     private String email;
+
+    private Timestamp date_of_birth;
 
 //    cmnd
     private String idNumber;
@@ -44,6 +47,7 @@ public class User {
 
     private String address;
 
+    private String phoneNumber;
 
     @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -68,5 +72,4 @@ public class User {
     @Builder.Default
     @ManyToMany(mappedBy = "listUsers")
     private Set<Room> rooms = new HashSet<>();
-
 }

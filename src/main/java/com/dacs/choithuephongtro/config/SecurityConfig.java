@@ -2,9 +2,6 @@ package com.dacs.choithuephongtro.config;
 
 
 import com.dacs.choithuephongtro.security.JwtTokenFilter;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -65,7 +62,7 @@ public class SecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(requests-> requests
                         .requestMatchers("/api/v1/**" ,"/users/**", "/chats/**", "/roomowner/**").hasRole("USER")
-                        .requestMatchers("/api/auth/**", "/api/word/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/contracts/**").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

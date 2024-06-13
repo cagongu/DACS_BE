@@ -8,6 +8,7 @@ import com.dacs.choithuephongtro.entities.Chat;
 import com.dacs.choithuephongtro.entities.Message;
 import com.dacs.choithuephongtro.service.ChatService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,9 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/chats")
-@AllArgsConstructor
 public class ChatController {
-    private final ChatService chatService;
+    @Autowired
+    private ChatService chatService;
 
     @PostMapping("/add")
     public ResponseEntity<Chat> createChat(@RequestBody Chat chat) {

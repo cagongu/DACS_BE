@@ -12,6 +12,7 @@ import com.dacs.choithuephongtro.repositories.DetailRepository;
 import com.dacs.choithuephongtro.repositories.RoomRepository;
 import com.dacs.choithuephongtro.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,14 +24,18 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
-@AllArgsConstructor
 public class RoomServiceJPA implements RoomService {
 
-    private final RoomMapper roomMapper;
-    private final RoomRepository roomRepository;
-    private final DetailRepository detailRepository;
-    private final CategoryRepository categoryRepository;
-    private final UserRepository userRepository;
+    @Autowired
+    private RoomMapper roomMapper;
+    @Autowired
+    private RoomRepository roomRepository;
+    @Autowired
+    private DetailRepository detailRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     private static final int DEFAULT_PAGE = 0;
     private static final int DEFAULT_PAGE_SIZE = 25;

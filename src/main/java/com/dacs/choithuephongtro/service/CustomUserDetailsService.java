@@ -13,7 +13,6 @@ import java.util.NoSuchElementException;
 
 @Service
 public class CustomUserDetailsService  implements UserDetailsService {
-
     @Autowired
     private UserRepository userRepository;
 

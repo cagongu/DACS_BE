@@ -5,6 +5,7 @@ import com.dacs.choithuephongtro.entities.User;
 import com.dacs.choithuephongtro.service.UserService;
 import lombok.AllArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,10 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/getall")
     public ResponseEntity<List<User>> getAll() {
