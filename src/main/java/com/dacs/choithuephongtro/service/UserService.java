@@ -9,6 +9,7 @@ import java.util.UUID;
 public interface UserService {
     void roomRegistration(UUID roomId);
     User getUserByUserName(String username) throws UserNotFoundException;
+    User getUserByFullName(String fullname) throws UserNotFoundException;
     List<User> getAll() throws UserNotFoundException;
     User getUserById(UUID userId);
 

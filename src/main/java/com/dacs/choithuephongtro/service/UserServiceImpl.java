@@ -37,6 +37,12 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException();
         }
     }
+
+    @Override
+    public User getUserByFullName(String fullname) throws UserNotFoundException {
+        return userRepository.findByFullname(fullname).orElse(null);
+    }
+
     @Override
     public List<User> getAll() throws UserNotFoundException {
         List<User> users=userRepository.findAll();

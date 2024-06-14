@@ -49,7 +49,7 @@ public class Room {
     @ManyToOne
     private Category category;
 
-    @Column(name="room_owner_id",length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = true)
+    @Column(name="room_owner_id",length = 36, columnDefinition = "varchar(36)", updatable = true, nullable = true)
     private UUID room_owner_id;
 
     @Builder.Default
