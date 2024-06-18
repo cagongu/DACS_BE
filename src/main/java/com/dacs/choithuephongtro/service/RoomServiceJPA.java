@@ -4,14 +4,13 @@ import com.dacs.choithuephongtro.entities.Category;
 import com.dacs.choithuephongtro.entities.Detail;
 import com.dacs.choithuephongtro.entities.Room;
 import com.dacs.choithuephongtro.entities.User;
-import com.dacs.choithuephongtro.mappers.CategoryMapper;
 import com.dacs.choithuephongtro.mappers.RoomMapper;
+import com.dacs.choithuephongtro.model.DetailDTO;
 import com.dacs.choithuephongtro.model.RoomDTO;
 import com.dacs.choithuephongtro.repositories.CategoryRepository;
 import com.dacs.choithuephongtro.repositories.DetailRepository;
 import com.dacs.choithuephongtro.repositories.RoomRepository;
 import com.dacs.choithuephongtro.repositories.UserRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -78,6 +79,13 @@ public class RoomServiceJPA implements RoomService {
         return roomPage.map(roomMapper::roomToRoomDto);
     }
 
+    @Override
+    public List<RoomDTO> listRoomByIdOwner(UUID uuid) {
+        List<RoomDTO> roomDTOList = new ArrayList<>(roomRepository.findAll().stream().map(roomMapper::roomToRoomDto).toList());
+        roomDTOList.removeIf(x -> !x.getRoom_owner_id().equals(uuid.toString()));
+        return roomDTOList;
+    }
+
     private PageRequest buildPageRequest(Integer pageNumber, Integer pageSize) {
         int queryPageNumber;
         int queryPageSize;
@@ -104,13 +112,13 @@ public class RoomServiceJPA implements RoomService {
     }
 
     @Override
-    public RoomDTO saveNewRoom(RoomDTO roomDTO, String CategoryDescription) {
+    public RoomDTO saveNewRoom(RoomDTO roomDTO, DetailDTO detailDTO, String CategoryDescription) {
         Room room = roomMapper.roomDtoToRoom(roomDTO);
         room.setCategory(categoryRepository.findAllByDescriptionIsLikeIgnoreCase("%" + CategoryDescription + "%"));
 
         Detail detail = Detail.builder()
-                .area(25.f)
-                .description("Phòng ni nhiều gián")
+                .area(detailDTO.getArea())
+                .description(detailDTO.getDescription())
                 .build();
 
         room.setDetail(detail);

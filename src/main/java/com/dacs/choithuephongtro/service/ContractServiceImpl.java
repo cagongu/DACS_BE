@@ -29,8 +29,7 @@ public class ContractServiceImpl implements ContractService {
     public CompletableFuture<Void> CreateContract(UUID roomId, LeaseContract leaseContract) throws IOException, UserNotFoundException {
         Room room = roomRepository.findById(roomId).orElse(null);
         assert room != null;
-//            UUID ownerId = room.getRoom_owner_id();
-        UUID ownerId = UUID.fromString("36f8ea87-80fb-450f-9885-be1e681e9b35");
+        UUID ownerId = UUID.fromString(room.getRoom_owner_id());
         User owner = userService.getUserById(ownerId);
         leaseContract.setLessor(owner);
         User tenant = leaseContract.getLessee();

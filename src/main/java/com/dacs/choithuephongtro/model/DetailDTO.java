@@ -2,6 +2,7 @@ package com.dacs.choithuephongtro.model;
 
 import com.dacs.choithuephongtro.entities.Room;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import java.util.UUID;
 

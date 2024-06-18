@@ -25,10 +25,9 @@ public class RoomDTO {
     private Boolean register;
     private Boolean enable;
 
-    @JsonBackReference
     private Detail detail;
 
-    private UUID room_owner_id;
+    private String room_owner_id;
     private Category category;
 
     @JsonIgnore

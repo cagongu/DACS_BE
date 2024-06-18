@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
@@ -25,8 +26,8 @@ public class ChatController {
 
     @PostMapping("/add")
     public ResponseEntity<Chat> createChat(@RequestBody Chat chat) {
-
         try {
+            chat.setChatId(UUID.randomUUID());
             return new ResponseEntity<Chat>(chatService.addChat(chat), HttpStatus.CREATED);
         } catch (ChatAlreadyExistException e) {
             return new ResponseEntity("Chat Already Exist", HttpStatus.CONFLICT);

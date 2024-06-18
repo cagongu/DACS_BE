@@ -36,8 +36,8 @@ public class Detail {
     @Column(name = "image4", unique = false, nullable = true, length = 100000)
     private byte[] image4;
 
-//    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
+    @JsonBackReference
     private Room room;
 }

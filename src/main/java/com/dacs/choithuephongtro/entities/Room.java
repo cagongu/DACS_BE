@@ -42,15 +42,15 @@ public class Room {
 
     private Boolean enable;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonIgnore
+    @OneToOne(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Detail detail;
 
     @ManyToOne
     private Category category;
 
     @Column(name="room_owner_id",length = 36, columnDefinition = "varchar(36)", updatable = true, nullable = true)
-    private UUID room_owner_id;
+    private String room_owner_id;
 
     @Builder.Default
     @ManyToMany

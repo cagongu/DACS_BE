@@ -2,11 +2,11 @@ package com.dacs.choithuephongtro.service;
 
 import com.dacs.choithuephongtro.Exception.ChatNotFoundException;
 import com.dacs.choithuephongtro.Exception.NoChatExistsInTheRepository;
+import com.dacs.choithuephongtro.Exception.NotFoundException;
 import com.dacs.choithuephongtro.entities.Chat;
 import com.dacs.choithuephongtro.entities.Message;
 import com.dacs.choithuephongtro.repositories.ChatRepository;
 import com.dacs.choithuephongtro.repositories.MessageRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +22,17 @@ public class ChatServiceImpl implements ChatService {
     public Chat addChat(Chat chat) {
         List<Message> messageList = chat.getMessageList();
 
-        if (!messageList.isEmpty()) {
-            for (int i = 0; i < messageList.size(); i++) {
-                chat.getMessageList().get(i).setChat(chat);
-            }
+        if(chat.getSecondUserName() == null){
+            throw new NotFoundException();
         }
-
-        return chatRepository.save(chat);
+        else{
+            if (!messageList.isEmpty()) {
+                for (int i = 0; i < messageList.size(); i++) {
+                    chat.getMessageList().get(i).setChat(chat);
+                }
+            }
+            return chatRepository.save(chat);
+        }
     }
 
     @Override
@@ -39,11 +43,6 @@ public class ChatServiceImpl implements ChatService {
         add.setChat(savedChat);
         return chatRepository.save(savedChat);
     }
-
-//    @Override
-//    public Message addMessage2(Message message) {
-//        return messageRepository.save(message);
-//    }
 
     @Override
     public List<Message> getAllMessagesInChat(UUID chatId) throws NoChatExistsInTheRepository {

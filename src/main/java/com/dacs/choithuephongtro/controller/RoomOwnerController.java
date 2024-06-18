@@ -1,7 +1,9 @@
 package com.dacs.choithuephongtro.controller;
 
 import com.dacs.choithuephongtro.Exception.NotFoundException;
+import com.dacs.choithuephongtro.Response.CreateRoomResquest;
 import com.dacs.choithuephongtro.entities.Room;
+import com.dacs.choithuephongtro.model.DetailDTO;
 import com.dacs.choithuephongtro.model.RoomDTO;
 import com.dacs.choithuephongtro.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -26,13 +29,18 @@ public class RoomOwnerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/adduser")
+    @PostMapping("/adduser")
     public ResponseEntity<RoomDTO> addUserToRoom(@RequestParam UUID roomId, @RequestParam UUID userId) {
 
         if (roomService.addUserToRoom(roomId, userId).isEmpty()) {
             throw new NotFoundException();
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/getbyidowner")
+    public List<RoomDTO> getRoomByIdOwner(@RequestParam UUID uuid){
+        return roomService.listRoomByIdOwner(uuid);
     }
 
     @PatchMapping("/patch/{roomId}")
@@ -62,9 +70,9 @@ public class RoomOwnerController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<RoomDTO> handlePost(@RequestBody RoomDTO roomDTO, @RequestParam String CategoryDescription) {
+    public ResponseEntity<RoomDTO> handlePost(@RequestBody CreateRoomResquest res) {
 
-        RoomDTO savedRoom = roomService.saveNewRoom(roomDTO, CategoryDescription);
+        RoomDTO savedRoom = roomService.saveNewRoom(res.getRoomDTO(), res.getDetailDTO()  ,res.getCategory());
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/roomowner/create" + "/" + savedRoom.getDetail().getRoom().getRoom_id().toString());

@@ -57,7 +57,7 @@ public class BootstrapData implements CommandLineRunner {
     }
 
     private void LoadRoomData() {
-        if(roomRepository.count() <= 5){
+        if(roomRepository.count() <= 3){
             Category category = categoryRepository.findAllByDescriptionIsLikeIgnoreCase("%" + "Phòng Trọ" + "%");
             System.out.println(category);
 
