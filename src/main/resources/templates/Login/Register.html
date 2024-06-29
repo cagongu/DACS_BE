@@ -1,8 +1,8 @@
-﻿@model DoAnWeb.Form.Register;
+﻿@model DoAnWeb.Form.Register
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    Layout = null;
+Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -25,116 +25,89 @@
     <link rel="shortcut icon" href="../../LayoutAdmin/assets/images/favicon.ico" />
 </head>
 <body>
-    <div class="container-scroller">
-        <div class="container-fluid page-body-wrapper full-page-wrapper">
-            <div class="content-wrapper d-flex align-items-center auth">
-                <div class="row flex-grow">
-                    <div class="col-lg-4 mx-auto">
-                        <div class="auth-form-light text-left p-5">
-                            <div class="brand-logo">
-                                <img src="../../LayoutAdmin/assets/images/logo.svg">
-                            </div>
-                            <h4>Hello! let's get started</h4>
-                            <h6 class="font-weight-light">Register to continue.</h6>
-                            <form class="pt-3" asp-action="Register" method="post">
-                                <div class="form-group">
-                                    <input class="form-control form-control-lg" asp-for="Username" placeholder="Username">
-                                    <span asp-validation-for="Username" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" asp-for="Password" class="form-control form-control-lg" id="password" placeholder="Password">
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" id="confirm-password" placeholder="Confirm password">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" asp-for="Ten" placeholder="Fullname">
-                                    <span asp-validation-for="Ten" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" asp-for="NgaySinh" placeholder="Born">
-                                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" asp-for="SoDienThoai" placeholder="PhoneNumber">
-                                    <span asp-validation-for="SoDienThoai" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" asp-for="DiaChi" placeholder="Address">
-                                    <span asp-validation-for="DiaChi" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" asp-for="Cccd" placeholder="nationalID">
-                                    <span asp-validation-for="Cccd" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-lg" asp-for="Email" placeholder="gmail">
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                                <div class="mt-3" style="display: flex; align-items: center; justify-content: center;">
-                                    <input type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" value="REGISTER">
-                                </div>
-                                <div class="text-center mt-4 font-weight-light">
-                                    Already have an account? <a asp-action="Login" class="text-primary">Login</a>
-                                </div>
-                            </form>
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+            <div class="row flex-grow">
+                <div class="col-lg-4 mx-auto">
+                    <div class="auth-form-light text-left p-5">
+                        <div class="brand-logo">
+                            <img src="../../LayoutAdmin/assets/images/logo.svg" alt="logo">
                         </div>
+                        <h4>Hello! let's get started</h4>
+                        <h6 class="font-weight-light">Register to continue.</h6>
+                        <form class="pt-3" asp-action="Register" method="post" id="registerForm">
+                            <div class="form-group">
+                                <input class="form-control form-control-lg" asp-for="Username" placeholder="Username">
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" asp-for="Password" class="form-control form-control-lg" id="password" placeholder="Password">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control form-control-lg" id="confirm-password" placeholder="Confirm Password">
+                                <span id="confirm-password-error" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" asp-for="Ten" placeholder="Fullname">
+                                <span asp-validation-for="Ten" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" class="form-control form-control-lg" asp-for="NgaySinh" placeholder="Born">
+                                <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" class="form-control form-control-lg" asp-for="SoDienThoai" placeholder="Phone Number">
+                                <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" asp-for="DiaChi" placeholder="Address">
+                                <span asp-validation-for="DiaChi" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" asp-for="Cccd" placeholder="National ID">
+                                <span asp-validation-for="Cccd" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-lg" asp-for="Email" placeholder="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="mt-3" style="display: flex; align-items: center; justify-content: center;">
+                                <input type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" value="REGISTER">
+                            </div>
+                            <div class="text-center mt-4 font-weight-light">
+                                Already have an account? <a asp-action="Login" class="text-primary">Login</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <!-- content-wrapper ends -->
         </div>
-        <!-- page-body-wrapper ends -->
+        <!-- content-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="../../LayoutAdmin/assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="../../LayoutAdmin/assets/js/off-canvas.js"></script>
-    <script src="../../LayoutAdmin/assets/js/hoverable-collapse.js"></script>
-    <script src="../../LayoutAdmin/assets/js/misc.js"></script>
-    <!-- endinject -->
-    <!-- Code injected by live-server -->
-    <script>
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="../../LayoutAdmin/assets/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="../../LayoutAdmin/assets/js/off-canvas.js"></script>
+<script src="../../LayoutAdmin/assets/js/hoverable-collapse.js"></script>
+<script src="../../LayoutAdmin/assets/js/misc.js"></script>
+<!-- endinject -->
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function (event) {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm-password").value;
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            document.getElementById("confirm-password-error").innerText = "Passwords do not match.";
         }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
-        // ]]>
-    </script>
+    });
+</script>
 </body>
 </html>
