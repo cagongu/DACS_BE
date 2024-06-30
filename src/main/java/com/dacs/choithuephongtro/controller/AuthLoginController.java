@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthLoginController {
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -24,8 +25,7 @@ public class AuthLoginController {
     private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) {
-
+    public ResponseEntity<AuthenticationResponse> authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getUsername(),
@@ -39,15 +39,9 @@ public class AuthLoginController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
-        // Xóa thông tin xác thực khỏi SecurityContextHolder
+    public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, null);
         SecurityContextHolder.clearContext();
-
-        // Tạo một đối tượng SecurityContextLogoutHandler để xử lý logout
-        SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-        logoutHandler.logout(request, response, null);
-
         return ResponseEntity.ok().build();
     }
-
 }
