@@ -26,7 +26,6 @@ public class SearchController {
             @RequestParam(required = false) Integer maxPrice,
             @RequestParam(required = false) Integer minSize,
             @RequestParam(required = false) Integer maxSize) {
-
         List<Room> rooms = searchService.searchRooms(location, minPrice, maxPrice, minSize, maxSize);
         return ResponseEntity.ok(rooms);
     }
